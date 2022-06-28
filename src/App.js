@@ -7,6 +7,7 @@ class App extends React.Component {
     super();
     this.handleChange = this.handleChange.bind(this);
     this.validateButton = this.validateButton.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
       cardName: '',
       cardDescription: '',
@@ -17,6 +18,7 @@ class App extends React.Component {
       cardRare: 'normal',
       cardTrunfo: false,
       isSaveButtonDisabled: true,
+      savedCards: [],
     };
   }
 
@@ -24,6 +26,21 @@ class App extends React.Component {
     const { name, type, value, checked } = event.target;
     this.setState({
       [name]: (type !== 'checkbox' ? value : checked) }, this.validateButton);
+  }
+
+  handleSubmit() {
+    this.setState((state) => ({
+      cardName: '',
+      cardDescription: '',
+      cardAttr1: 0,
+      cardAttr2: 0,
+      cardAttr3: 0,
+      cardImage: '',
+      cardRare: 'normal',
+      cardTrunfo: false,
+      isSaveButtonDisabled: true,
+      savedCards: [state, ...state.savedCards],
+    }));
   }
 
   validateButton() {
@@ -79,8 +96,17 @@ class App extends React.Component {
       <div>
         <h1>Tryunfo</h1>
         <Form
-          onInputChange={ this.handleChange }
+          cardName={ cardName }
+          cardDescription={ cardDescription }
+          cardAttr1={ cardAttr1 }
+          cardAttr2={ cardAttr2 }
+          cardAttr3={ cardAttr3 }
+          cardImage={ cardImage }
+          cardRare={ cardRare }
+          cardTrunfo={ cardTrunfo }
           isSaveButtonDisabled={ isSaveButtonDisabled }
+          onInputChange={ this.handleChange }
+          onSaveButtonClick={ this.handleSubmit }
         />
         <Card
           cardName={ cardName }
