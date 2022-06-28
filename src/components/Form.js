@@ -20,7 +20,7 @@ class Form extends React.Component {
         <label htmlFor="name-input">
           Nome
           <input
-            name="nome"
+            name="cardName"
             type="text"
             data-testid="name-input"
             value={ cardName }
@@ -31,7 +31,7 @@ class Form extends React.Component {
         <label htmlFor="description-input">
           Descrição
           <textarea
-            name="description"
+            name="cardDescription"
             type="text"
             data-testid="description-input"
             value={ cardDescription }
@@ -42,7 +42,7 @@ class Form extends React.Component {
         <label htmlFor="attr1-input">
           Poder
           <input
-            name="attribute-one"
+            name="cardAttr1"
             type="number"
             data-testid="attr1-input"
             value={ cardAttr1 }
@@ -53,7 +53,7 @@ class Form extends React.Component {
         <label htmlFor="attr2-input">
           Energia
           <input
-            name="attribute-two"
+            name="cardAttr2"
             type="number"
             data-testid="attr2-input"
             value={ cardAttr2 }
@@ -64,7 +64,7 @@ class Form extends React.Component {
         <label htmlFor="aattr3-input">
           Defesa
           <input
-            name="attribute-three"
+            name="cardAttr3"
             type="number"
             data-testid="attr3-input"
             value={ cardAttr3 }
@@ -75,7 +75,7 @@ class Form extends React.Component {
         <label htmlFor="image-input">
           Imagem
           <textarea
-            name="image"
+            name="cardImage"
             type="text"
             data-testid="image-input"
             value={ cardImage }
@@ -95,7 +95,7 @@ class Form extends React.Component {
         <label htmlFor="trunfo-input">
           Super Trunfo
           <input
-            name="nome"
+            name="cardTrunfo"
             type="checkbox"
             data-testid="trunfo-input"
             checked={ cardTrunfo }
