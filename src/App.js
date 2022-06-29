@@ -5,9 +5,6 @@ import Card from './components/Card';
 class App extends React.Component {
   constructor() {
     super();
-    this.handleChange = this.handleChange.bind(this);
-    this.validateButton = this.validateButton.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
       cardName: '',
       cardDescription: '',
@@ -17,33 +14,22 @@ class App extends React.Component {
       cardImage: '',
       cardRare: 'normal',
       cardTrunfo: false,
+      hasTrunfo: false,
       isSaveButtonDisabled: true,
       savedCards: [],
     };
+    this.handleChange = this.handleChange.bind(this);
+    this.validateSubmit = this.validateSubmit.bind(this);
+    this.submitingCard = this.submitingCard.bind(this);
   }
 
   handleChange(event) {
     const { name, type, value, checked } = event.target;
     this.setState({
-      [name]: (type !== 'checkbox' ? value : checked) }, this.validateButton);
+      [name]: (type !== 'checkbox' ? value : checked) }, this.validateSubmit);
   }
 
-  handleSubmit() {
-    this.setState((state) => ({
-      cardName: '',
-      cardDescription: '',
-      cardAttr1: 0,
-      cardAttr2: 0,
-      cardAttr3: 0,
-      cardImage: '',
-      cardRare: 'normal',
-      cardTrunfo: false,
-      isSaveButtonDisabled: true,
-      savedCards: [state, ...state.savedCards],
-    }));
-  }
-
-  validateButton() {
+  validateSubmit() {
     const { cardName,
       cardDescription,
       cardAttr1,
@@ -60,7 +46,9 @@ class App extends React.Component {
     const min = 0;
     const max = 90;
     const limitSum = 210;
-    if (sum > limitSum) { errorsForm += 1; }
+    if (sum > limitSum) {
+      errorsForm += 1;
+    }
     if (convertedAttr1 < min
      || convertedAttr2 < min
      || convertedAttr3 < min
@@ -81,6 +69,30 @@ class App extends React.Component {
     }
   }
 
+  submitingCard() {
+    const { cardTrunfo } = this.state;
+    if (cardTrunfo) {
+      this.setState({
+        hasTrunfo: true,
+      });
+    } else {
+      this.setState({
+        hasTrunfo: false });
+    }
+    this.setState((state) => ({
+      cardName: '',
+      cardDescription: '',
+      cardAttr1: 0,
+      cardAttr2: 0,
+      cardAttr3: 0,
+      cardImage: '',
+      cardRare: 'normal',
+      cardTrunfo: false,
+      isSaveButtonDisabled: true,
+      savedCards: [state, ...state.savedCards],
+    }));
+  }
+
   render() {
     const { cardName,
       cardDescription,
@@ -90,6 +102,7 @@ class App extends React.Component {
       cardImage,
       cardRare,
       cardTrunfo,
+      hasTrunfo,
       isSaveButtonDisabled,
     } = this.state;
     return (
@@ -104,9 +117,10 @@ class App extends React.Component {
           cardImage={ cardImage }
           cardRare={ cardRare }
           cardTrunfo={ cardTrunfo }
+          hasTrunfo={ hasTrunfo }
           isSaveButtonDisabled={ isSaveButtonDisabled }
           onInputChange={ this.handleChange }
-          onSaveButtonClick={ this.handleSubmit }
+          onSaveButtonClick={ this.submitingCard }
         />
         <Card
           cardName={ cardName }
